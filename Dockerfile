@@ -1,11 +1,11 @@
 FROM parrotstream/centos-openjdk:8
 
 ENV HADOOP_VER 2.7.7
+ENV JAVA_HOME /usr/lib/jvm/java
 
-MAINTAINER Matteo Capitanio <matteo.capitanio@gmail.com>
+MAINTAINER Matteo Capitanio <matteo.capitanio@gmail.com> 
 
 USER root
-
 ENV HADOOP_HOME /opt/hadoop
 ENV HADOOP_PREFIX $HADOOP_HOME
 ENV HADOOP_COMMON_HOME $HADOOP_HOME
@@ -40,13 +40,13 @@ COPY ./etc /etc
 RUN chmod +x $HADOOP_HOME/etc/hadoop/*.sh
 RUN chmod +x $HADOOP_HOME/bin/*.sh
 
-RUN rm -rf /hdfs; \
-    mkdir -p /hdfs; \
+RUN mkdir -p /hdfs; \
     chown -R hdfs:hdfs /hdfs; \
     chown -R hdfs:hdfs $HADOOP_HOME
 
 USER hdfs
 RUN mkdir -p $HADOOP_HOME/logs; \
+    sleep 2m; \
     hdfs namenode -format
 USER root
 
